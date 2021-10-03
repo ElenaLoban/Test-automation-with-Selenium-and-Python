@@ -1,0 +1,32 @@
+import time
+
+from selenium import webdriver
+import math
+try:
+    link = "http://suninjuly.github.io/math.html"
+    browser = webdriver.Chrome()
+    browser.get(link)
+    # Calculate the mathematical function of x
+    def calc(x):
+         return str(math.log(abs(12*math.sin(int(x)))))
+    # Calculate the value for the variable x
+    x_element = browser.find_element_by_css_selector("#input_value")
+    x = x_element.text
+    x_result = calc(x)
+    #Input x
+    x_input = browser.find_element_by_id("answer")
+    x_input.send_keys(x_result)
+
+    #Mark the checkbox "I'm the robot"
+    option1 = browser.find_element_by_css_selector("[for='robotCheckbox']")
+    option1.click()
+    #Choose radiobutton "Robots rule!"
+    option2 = browser.find_element_by_css_selector("[value='robots']")
+    option2.click()
+    #Click Submit button.
+    button = browser.find_element_by_class_name("btn-default")
+    button.click()
+finally:
+    time.sleep(10)
+    # Close the browser
+    browser.quit()
